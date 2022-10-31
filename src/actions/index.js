@@ -31,3 +31,18 @@ export const addHero = (heroes) => {
         payload: heroes
     }
 }
+
+export const setFilter = (filter) => {
+    return {
+        type: 'SET_FILTER',
+        payload: filter
+    }
+}
+
+
+export const filterHeroes = (list) => {
+    return {
+        type: 'FILTERED_LIST_OF_HEROES',
+        payload: list
+    }
+}

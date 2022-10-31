@@ -35,7 +35,10 @@ const HeroesListItem = ({name, description, element, id, heroDelete, heroes}) =>
                 <p className="card-text">{description}</p>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
-                <button onClick={() => dispatch(heroDeleted(heroDelete(heroes, id)))} type="button" className="btn-close btn-close" aria-label="Close"></button>
+                <button onClick={() => {
+                    dispatch(heroDeleted(heroDelete(heroes, id)));
+                }}
+                    type="button" className="btn-close btn-close" aria-label="Close"></button>
             </span>
         </li>
     )
