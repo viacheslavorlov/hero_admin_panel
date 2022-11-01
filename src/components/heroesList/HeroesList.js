@@ -1,5 +1,5 @@
 import {useHttp} from '../../hooks/http.hook';
-import {useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
 import {heroesFetching, heroesFetched, heroesFetchingError,  filterHeroes} from '../../actions';
@@ -33,16 +33,16 @@ const HeroesList = () => {
 		dispatch(filterHeroes(heroes, 'all'));
 	}, [heroes]);
 
+	const heroDelete = (arr, heroId) => {
+		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
+			.then(r => console.log(`hero ${heroId} deleted`))
+		return arr.filter(item => item.id !== heroId);
+	}
 
 	if (heroesLoadingStatus === "loading") {
 		return <Spinner/>;
 	} else if (heroesLoadingStatus === "error") {
 		return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
-	}
-	const heroDelete = (arr, heroId) => {
-		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
-			.then(r => console.log(`hero ${heroId} deleted`))
-		return arr.filter(item => item.id !== heroId);
 	}
 
 	const renderHeroesList = (arr) => {
@@ -53,15 +53,6 @@ const HeroesList = () => {
 		return arr.map((props) => {
 			return <HeroesListItem heroes={filteredListOfHeroes} heroDelete={heroDelete} key={props.id} {...props}/>
 		})
-	}
-
-	const filter = (arr, filter) => {
-		if (filter === 'all') {
-			dispatch(filterHeroes(arr));
-			return;
-		}
-		const newArr = arr.filter(item => item.element === filter);
-		dispatch(filterHeroes(newArr));
 	}
 
 	const elements = renderHeroesList(filteredListOfHeroes);

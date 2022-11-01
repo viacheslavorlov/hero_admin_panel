@@ -25,6 +25,7 @@ const reducer = (state = initialState, action) => {
                 heroesLoadingStatus: 'error'
             }
         case 'HERO_DELETED':
+
             return {
                 ...state,
                 heroes: action.payload

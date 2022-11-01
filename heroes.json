@@ -7,34 +7,34 @@
       "id": "3672ede2-4396-43d2-8117-cef479f479af"
     },
     {
-      "name": "4",
-      "description": "4444444444444",
-      "element": "earth",
-      "id": "4e0a527f-1e82-4631-8a83-05863f5094e9"
-    },
-    {
       "name": "xtxtkj",
       "description": "csh",
       "element": "wind",
       "id": "9a70d6a5-f7c8-4347-8dbf-fa1b2df83c27"
     },
     {
-      "name": "asdffff",
-      "description": "asdfasdfasdf",
-      "element": "fire",
-      "id": "47531e80-1e73-4c4f-aae9-2e09c80c25c1"
-    },
-    {
       "name": "aasdfas",
       "description": "eartn",
       "element": "",
       "id": "6c9447c3-fefc-4a3b-8d4d-b1ff6e4bdea0"
+    },
+    {
+      "name": "аквамен",
+      "description": "плавать",
+      "element": "water",
+      "id": "80fe233e-a1fb-4e88-b99a-2b14b2e42abb"
+    },
+    {
+      "name": "Black Panter",
+      "description": "бегать",
+      "element": "earth",
+      "id": "31f533a1-e04d-48dc-afab-b04bcae5b2b0"
     }
   ],
   "filters": [
     {
       "element": "all",
-      "name": "Я владею элементом",
+      "name": "Все",
       "style": "btn-outline-dark"
     },
     {

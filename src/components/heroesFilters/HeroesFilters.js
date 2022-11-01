@@ -12,9 +12,8 @@ import {v4} from 'uuid';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-	const heroes = useSelector(state => state.heroes);
+	const {heroes, activeFilter} = useSelector(state => state);
 	const [btns, setBtns] = useState([]);
-	const ref = useRef();
 	const dispatch = useDispatch();
 	const {request} = useHttp();
 
@@ -38,9 +37,11 @@ const HeroesFilters = () => {
 	const btnsList = btns.map(item => {
 		return (
 			<button
-				onClick={() => filter(heroes, item.element)}
+				onClick={(e) => {
+					filter(heroes, item.element);
+				}}
 				key={v4()}
-				className={"btn " + item.style}>
+				className={`btn ${item.style} ${activeFilter === item.element ? 'active border': ''}`}>
 				{item.name}
 			</button>
 		)
@@ -50,6 +51,10 @@ const HeroesFilters = () => {
 		onBtnsRequest();
 	}, []);
 
+	useEffect(() => {
+		filter(heroes, activeFilter);
+	}, [heroes, activeFilter])
+
 
 	return (
 		<div className="card shadow-lg mt-4">
@@ -57,11 +62,6 @@ const HeroesFilters = () => {
 				<p className="card-text">Отфильтруйте героев по элементам</p>
 				<div className="btn-group">
 					{btnsList}
-					{/*<button className="btn btn-outline-dark ">Все</button>*/}
-					{/*<button className="btn btn-danger">Огонь</button>*/}
-					{/*<button className="btn btn-primary">Вода</button>*/}
-					{/*<button className="btn btn-success">Ветер</button>*/}
-					{/*<button className="btn btn-secondary">Земля</button>*/}
 				</div>
 			</div>
 		</div>
