@@ -1,34 +1,34 @@
 {
   "heroes": [
     {
-      "name": "2",
-      "description": "22222222222",
-      "element": "water",
-      "id": "3672ede2-4396-43d2-8117-cef479f479af"
-    },
-    {
-      "name": "xtxtkj",
-      "description": "csh",
-      "element": "wind",
-      "id": "9a70d6a5-f7c8-4347-8dbf-fa1b2df83c27"
-    },
-    {
-      "name": "aasdfas",
-      "description": "eartn",
-      "element": "",
-      "id": "6c9447c3-fefc-4a3b-8d4d-b1ff6e4bdea0"
-    },
-    {
-      "name": "аквамен",
-      "description": "плавать",
-      "element": "water",
-      "id": "80fe233e-a1fb-4e88-b99a-2b14b2e42abb"
-    },
-    {
       "name": "Black Panter",
       "description": "бегать",
       "element": "earth",
       "id": "31f533a1-e04d-48dc-afab-b04bcae5b2b0"
+    },
+    {
+      "name": "Thor",
+      "description": "lightning",
+      "element": "wind",
+      "id": "7bd21c79-98cf-4219-8ab6-fecdc4ac4ed2"
+    },
+    {
+      "name": "Blue Panter",
+      "description": "pee-pee-doo",
+      "element": "water",
+      "id": "0f56acf7-1a1a-4230-8b37-0a9ecfec1267"
+    },
+    {
+      "name": "asdf",
+      "description": "asdf",
+      "element": "fire",
+      "id": "584428d0-68c7-4802-ac40-82e6719fee21"
+    },
+    {
+      "name": "1",
+      "description": "2",
+      "element": "fire",
+      "id": "f47c22d1-5f0a-4417-97cd-8da702d9ee8a"
     }
   ],
   "filters": [

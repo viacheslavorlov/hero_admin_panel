@@ -19,7 +19,7 @@ const HeroesAddForm = () => {
 	const [newHero, setNewHero] = useState({
 		name: '',
 		description: '',
-		element: ''
+		element: 'fire'
 	});
 
 	const state = useSelector(state => state);
@@ -57,6 +57,9 @@ const HeroesAddForm = () => {
 	}
 
 	const options = filters.map((item, i) => {
+		if (item.element === 'all') {
+			return null;
+		}
 		return (
 			<option key={i} value={item.element}>{item.name}</option>
 		)
@@ -119,11 +122,6 @@ const HeroesAddForm = () => {
 					id="element"
 					name="element">
 					{options}
-					{/*<option>Я владею элементом...</option>*/}
-					{/*<option value="fire">Огонь</option>*/}
-					{/*<option value="water">Вода</option>*/}
-					{/*<option value="wind">Ветер</option>*/}
-					{/*<option value="earth">Земля</option>*/}
 				</select>
 			</div>
 
