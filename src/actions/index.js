@@ -46,3 +46,10 @@ export const filterHeroes = (list) => {
         payload: list
     }
 }
+
+export const loadFilters = (filters) => {
+    return {
+        type: 'LOAD_FILTERS',
+        payload: filters
+    }
+}

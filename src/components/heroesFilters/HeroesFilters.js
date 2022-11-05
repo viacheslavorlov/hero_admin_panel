@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useHttp} from "../../hooks/http.hook";
-import {setFilter} from "../../actions";
-import {useEffect, useState} from "react";
+import {loadFilters, setFilter} from "../../actions";
+import {useEffect} from "react";
 import {v4} from 'uuid';
 
 // Задача для этого компонента:
@@ -12,27 +12,22 @@ import {v4} from 'uuid';
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
-	const {activeFilter} = useSelector(state => state);
-	const [btns, setBtns] = useState([]);
+	const {activeFilter, filters} = useSelector(state => state.filters);
 	const dispatch = useDispatch();
 	const {request} = useHttp();
 
-	const onBtnsRequest = () => {
+	const onFiltersRequest = () => {
+		console.log('request filters')
 		request('http://localhost:3001/filters')
-			.then(res => setBtns(res))
+			.then(res => dispatch(loadFilters(res)))
 			.catch(err => console.log(err));
 	}
 
-	const filterHeroesByElement = (filter) => {
-		dispatch(setFilter(filter));
-	}
 
-	const btnsList = btns.map(item => {
+	const btnsList = filters.map(item => {
 		return (
 			<button
-				onClick={() => {
-					filterHeroesByElement(item.element);
-				}}
+				onClick={() => dispatch(setFilter(item.element))}
 				key={v4()}
 				className={`btn ${item.style} ${activeFilter === item.element ? 'active border': ''}`}>
 				{item.name}
@@ -41,11 +36,11 @@ const HeroesFilters = () => {
 	});
 
 	useEffect(() => {
-		onBtnsRequest();
+		onFiltersRequest();
 	}, []);
 
 	useEffect(() => {
-		filterHeroesByElement(activeFilter);
+		dispatch(setFilter(activeFilter));
 	}, [activeFilter])
 
 

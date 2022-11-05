@@ -8,13 +8,15 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "bootstrap": "^5.2.2",
+    "classnames": "^2.3.2",
     "concurrently": "^7.4.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "react-scripts": "5.0.1",
+    "redux": "^4.2.0",
+    "reselect": "^4.1.7",
     "sass": "^1.55.0",
-    "classnames": "^2.3.2",
     "uuid": "^9.0.0"
   },
   "scripts": {

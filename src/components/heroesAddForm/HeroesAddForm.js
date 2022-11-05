@@ -15,7 +15,6 @@ import {addHero, filterHeroes} from "../../actions";
 
 
 const HeroesAddForm = () => {
-	const [filters, setFilters] = useState([]);
 	const [newHero, setNewHero] = useState({
 		name: '',
 		description: '',
@@ -28,11 +27,7 @@ const HeroesAddForm = () => {
 
 	const {request} = useHttp();
 
-	const onLoadOptions = () => {
-		request('http://localhost:3001/filters')
-			.then(res => setFilters(res))
-			.catch(error =>  console.log(error));
-	}
+
 
 	const onValueChange = (e) => {
 		setNewHero(prevState => ({
@@ -44,19 +39,19 @@ const HeroesAddForm = () => {
 	const handleSubmit = (e, obj) => {
 		e.preventDefault();
 		obj.id = v4();
-		const newArr = [...state.heroes, obj];
+		const newArr = [...state.heroes.heroes, obj];
 		dispatch(addHero(newArr));
 		request('http://localhost:3001/heroes', 'POST', JSON.stringify(obj));
 		console.log(newArr);
 		setNewHero(prevState => ({
 			name: '',
 			description: '',
-			element: ''
+			element: "fire"
 		}))
 		e.target.reset();
 	}
 
-	const options = filters.map((item, i) => {
+	const options = state.filters.filters.map((item, i) => {
 		if (item.element === 'all') {
 			return null;
 		}
@@ -75,13 +70,12 @@ const HeroesAddForm = () => {
 	}
 
 	useEffect(() => {
-		onLoadOptions();
-		filter(state.filteredListOfHeroes, state.activeFilter);
+		filter(state.filters.filteredListOfHeroes, state.filters.activeFilter);
 	}, []);
 
 	useEffect(() => {
-		filter(state.filteredListOfHeroes, state.activeFilter);
-	}, [state.heroes, state.activeFilter]);
+		filter(state.filters.filteredListOfHeroes, state.filters.activeFilter);
+	}, [state.heroes.heroes, state.filters.activeFilter]);
 
 
 	return (

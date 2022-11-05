@@ -1,34 +1,28 @@
 {
   "heroes": [
     {
-      "name": "Black Panter",
-      "description": "бегать",
-      "element": "earth",
-      "id": "31f533a1-e04d-48dc-afab-b04bcae5b2b0"
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
     },
     {
-      "name": "Thor",
-      "description": "lightning",
-      "element": "wind",
-      "id": "7bd21c79-98cf-4219-8ab6-fecdc4ac4ed2"
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
     },
     {
-      "name": "Blue Panter",
-      "description": "pee-pee-doo",
-      "element": "water",
-      "id": "0f56acf7-1a1a-4230-8b37-0a9ecfec1267"
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
     },
     {
       "name": "asdf",
-      "description": "asdf",
+      "description": "asdfas",
       "element": "fire",
-      "id": "584428d0-68c7-4802-ac40-82e6719fee21"
-    },
-    {
-      "name": "1",
-      "description": "2",
-      "element": "fire",
-      "id": "f47c22d1-5f0a-4417-97cd-8da702d9ee8a"
+      "id": "154ca218-7b27-4d7a-939e-c298da37953d"
     }
   ],
   "filters": [

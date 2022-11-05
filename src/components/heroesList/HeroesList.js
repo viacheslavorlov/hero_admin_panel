@@ -1,8 +1,9 @@
 import {useHttp} from '../../hooks/http.hook';
-import {useCallback, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
+import {createSelector} from 'reselect'
 
-import {heroesFetching, heroesFetched, heroesFetchingError, filterHeroes} from '../../actions';
+import {heroesFetched, heroesFetchingError, filterHeroes} from '../../actions/';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -12,19 +13,28 @@ import Spinner from '../spinner/Spinner';
 // *DONE Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-	const filtHeroes = useSelector(state => {
-	    if (state.activeFilter === 'all') {
-			return state.heroes;
-	    } else {
-			return state.heroes.filter(item => item.element === state.activeFilter)
-	    }
-	})
-	const {heroesLoadingStatus, heroes} = useSelector(state => state);
+
+	const filteredHeroesSelector = createSelector(
+		(state) => state.filters.activeFilter,
+		(state) => state.heroes.heroes,
+		(activeFilter, heroes) => {
+			console.log("heroList_renders");
+			if (activeFilter === 'all') {
+
+				return heroes;
+			} else {
+				return heroes.filter(item => item.element === activeFilter)
+			}
+		}
+	);
+	const filtHeroes = useSelector(filteredHeroesSelector);
+
+	const {heroesLoadingStatus, heroes} = useSelector(state => state.heroes);
 	const dispatch = useDispatch();
 	const {request} = useHttp();
 
 	useEffect(() => {
-		dispatch(heroesFetching());
+		dispatch('HEROES_FETCHING');
 		request("http://localhost:3001/heroes")
 			.then(data => {
 				dispatch(heroesFetched(data));
@@ -32,8 +42,6 @@ const HeroesList = () => {
 			})
 			.catch(() => dispatch(heroesFetchingError()));
 
-
-		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -42,7 +50,7 @@ const HeroesList = () => {
 
 	const heroDelete = (arr, heroId) => {
 		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
-			.then(r => console.log(`hero ${heroId} deleted`))
+			.then((r) => console.log(`hero ${heroId} deleted`, r))
 		return arr.filter(item => item.id !== heroId);
 	}
 
@@ -56,7 +64,6 @@ const HeroesList = () => {
 		if (arr.length === 0) {
 			return <h5 className="text-center mt-5">Героев пока нет</h5>;
 		}
-
 		return arr.map((props) => {
 			return <HeroesListItem heroes={filtHeroes} heroDelete={heroDelete} key={props.id} {...props}/>
 		})
