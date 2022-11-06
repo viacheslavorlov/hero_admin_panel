@@ -1,7 +1,6 @@
 const initialState = {
 	filters: [],
 	activeFilter: 'all',
-	filteredListOfHeroes: []
 }
 
 const fiters = (state = initialState, action) => {

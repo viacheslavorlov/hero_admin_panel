@@ -1,5 +1,5 @@
 import {useHttp} from '../../hooks/http.hook';
-import {createRef, useEffect} from 'react';
+import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {createSelector} from 'reselect'
 
@@ -61,21 +61,23 @@ const HeroesList = () => {
 					<h5 className="text-center mt-5">Героев пока нет</h5>
 				</CSSTransition>
 			);
-		} else {
-			return arr.map((props) => {
-				return (
-					<CSSTransition
-						key={props.id}
-						timeout={500}
-						classNames="item"
-					>
-							<HeroesListItem heroes={filtHeroes} heroDelete={heroDelete}
-							                {...props}/>
-					</CSSTransition>
-				)
-			})
 		}
+		return arr.map((props) => {
+			return (
+				<CSSTransition
+					key={props.id}
+					timeout={500}
+					classNames="item"
+				>
+					<HeroesListItem
+						heroes={filtHeroes}
+						heroDelete={heroDelete}
+						{...props}/>
+				</CSSTransition>
+			)
+		})
 	}
+
 
 	const elements = renderHeroesList(filtHeroes);
 
