@@ -8,10 +8,10 @@
 // * Элементы <option></option> желательно сформировать на базе
 // * данных из фильтров
 import {v4} from "uuid";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useHttp} from '../../hooks/http.hook'
-import {addHero, filterHeroes} from "../../actions";
+import {addHero} from "../../actions";
 
 
 const HeroesAddForm = () => {
@@ -26,8 +26,6 @@ const HeroesAddForm = () => {
 	const dispatch = useDispatch();
 
 	const {request} = useHttp();
-
-
 
 	const onValueChange = (e) => {
 		setNewHero(prevState => ({
@@ -59,23 +57,6 @@ const HeroesAddForm = () => {
 			<option key={i} value={item.element}>{item.name}</option>
 		)
 	});
-
-	const filter = (arr, filter) => {
-		if (filter === 'all') {
-			dispatch(filterHeroes(arr));
-			return;
-		}
-		const newArr = arr.filter(item => item.element === filter);
-		dispatch(filterHeroes(newArr));
-	}
-
-	useEffect(() => {
-		filter(state.filters.filteredListOfHeroes, state.filters.activeFilter);
-	}, []);
-
-	useEffect(() => {
-		filter(state.filters.filteredListOfHeroes, state.filters.activeFilter);
-	}, [state.heroes.heroes, state.filters.activeFilter]);
 
 
 	return (

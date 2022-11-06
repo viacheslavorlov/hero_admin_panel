@@ -3,7 +3,7 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {createSelector} from 'reselect'
 
-import {heroesFetched, heroesFetchingError, filterHeroes} from '../../actions/';
+import {fetchHeroes} from '../../actions/';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -18,35 +18,25 @@ const HeroesList = () => {
 		(state) => state.filters.activeFilter,
 		(state) => state.heroes.heroes,
 		(activeFilter, heroes) => {
+			const filteredList = heroes.filter(item => item.element === activeFilter)
 			console.log("heroList_renders");
 			if (activeFilter === 'all') {
 
 				return heroes;
 			} else {
-				return heroes.filter(item => item.element === activeFilter)
+				return filteredList;
 			}
 		}
 	);
 	const filtHeroes = useSelector(filteredHeroesSelector);
-
-	const {heroesLoadingStatus, heroes} = useSelector(state => state.heroes);
+	const {heroesLoadingStatus} = useSelector(state => state.heroes);
 	const dispatch = useDispatch();
 	const {request} = useHttp();
 
 	useEffect(() => {
-		dispatch('HEROES_FETCHING');
-		request("http://localhost:3001/heroes")
-			.then(data => {
-				dispatch(heroesFetched(data));
-				dispatch(filterHeroes(data));
-			})
-			.catch(() => dispatch(heroesFetchingError()));
-
+		dispatch(fetchHeroes(request))
 	}, []);
 
-	useEffect(() => {
-		dispatch(filterHeroes(heroes, 'all'));
-	}, [heroes]);
 
 	const heroDelete = (arr, heroId) => {
 		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')

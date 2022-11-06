@@ -17,6 +17,7 @@ const fiters = (state = initialState, action) => {
 				activeFilter: action.payload
 			}
 		case 'FILTERED_LIST_OF_HEROES':
+			console.log('filter')
 			return {
 				...state,
 				filteredListOfHeroes: action.payload
