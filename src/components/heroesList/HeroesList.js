@@ -3,7 +3,8 @@ import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {createSelector} from 'reselect'
 
-import {fetchHeroes} from '../../actions/';
+import {fetchHeroes} from '../../actions';
+import heroes from "../../reducers/hero";
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
@@ -39,10 +40,9 @@ const HeroesList = () => {
 	}, []);
 
 
-	const heroDelete = (arr, heroId) => {
+	const heroDelete = (heroId) => {
 		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
 			.then((r) => console.log(`hero ${heroId} deleted`, r))
-		return arr.filter(item => item.id !== heroId);
 	}
 
 	if (heroesLoadingStatus === "loading") {

@@ -13,48 +13,16 @@ export const fetchFilters = (request) => (dispatch) => {
         .catch(err => console.log(err));
 }
 
-// export const heroesFetching = () => {
-//     return {
-//         type: 'HEROES_FETCHING'
-//     }
-// }
-
 export const heroesFetching = createAction('HEROES_FETCHING')
 
 export const heroesFetched = createAction('HEROES_FETCHED')
 
-export const heroesFetchingError = () => {
-    return {
-        type: 'HEROES_FETCHING_ERROR'
-    }
-}
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR')
 
-export const heroDeleted = (heroes) => {
-    return {
-        type: 'HERO_DELETED',
-        payload: heroes
-    }
-}
+export const heroDeleted = createAction('HERO_DELETED')
 
+export const addHero = createAction('HERO_ADD')
 
-export const addHero = (heroes) => {
-    return {
-        type: 'HERO_ADD',
-        payload: heroes
-    }
-}
+export const setFilter = createAction('SET_FILTER')
 
-export const setFilter = (filter) => {
-    return {
-        type: 'SET_FILTER',
-        payload: filter
-    }
-}
-
-
-export const loadFilters = (filters) => {
-    return {
-        type: 'LOAD_FILTERS',
-        payload: filters
-    }
-}
+export const loadFilters = createAction('LOAD_FILTERS')

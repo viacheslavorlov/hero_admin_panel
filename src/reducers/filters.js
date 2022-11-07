@@ -1,9 +1,21 @@
+import {createReducer} from "@reduxjs/toolkit";
+import {loadFilters, setFilter} from "../actions";
+
 const initialState = {
 	filters: [],
 	activeFilter: 'all',
 }
-
-const fiters = (state = initialState, action) => {
+// const filters = createReducer(initialState, builder => {
+// 	builder
+// 		.addCase(setFilter, (state, action) => {
+// 			state.filters.activeFilter = action.payload;
+// 		})
+// 		.addCase(loadFilters, (state, action) => {
+// 				state.filters.filters = action.payload;
+// 		})
+// 		.addDefaultCase(() =>{})
+// })
+const filters = (state = initialState, action) => {
 	switch (action.type) {
 		case 'LOAD_FILTERS':
 			return {
@@ -30,4 +42,4 @@ const fiters = (state = initialState, action) => {
 	}
 }
 
-export default fiters;
+export default filters;

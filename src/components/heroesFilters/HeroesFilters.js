@@ -1,6 +1,7 @@
 import {useDispatch, useSelector} from "react-redux";
 import {useHttp} from "../../hooks/http.hook";
 import {fetchFilters, setFilter} from "../../actions";
+
 import {useEffect} from "react";
 import {v4} from 'uuid';
 

@@ -1,7 +1,7 @@
 import {heroDeleted} from "../../actions";
 import {useDispatch} from "react-redux";
 
-const HeroesListItem = ({name, description, element, id, heroDelete, heroes}) => {
+const HeroesListItem = ({name, description, element, id, heroDelete}) => {
     const dispatch = useDispatch()
     let elementClassName;
 
@@ -36,7 +36,8 @@ const HeroesListItem = ({name, description, element, id, heroDelete, heroes}) =>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
                 <button onClick={() => {
-                    dispatch(heroDeleted(heroDelete(heroes, id)));
+                    heroDelete(id)
+                    dispatch(heroDeleted(id));
                 }}
                     type="button" className="btn-close btn-close" aria-label="Close"></button>
             </span>

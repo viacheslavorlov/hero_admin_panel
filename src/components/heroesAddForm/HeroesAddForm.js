@@ -37,10 +37,9 @@ const HeroesAddForm = () => {
 	const handleSubmit = (e, obj) => {
 		e.preventDefault();
 		obj.id = v4();
-		const newArr = [...state.heroes.heroes, obj];
-		dispatch(addHero(newArr));
+		dispatch(addHero(newHero));
 		request('http://localhost:3001/heroes', 'POST', JSON.stringify(obj));
-		console.log(newArr);
+		console.log(newHero);
 		setNewHero(prevState => ({
 			name: '',
 			description: '',
