@@ -1,5 +1,5 @@
 import {configureStore} from "@reduxjs/toolkit";
-import heroes from '../reducers/hero';
+import heroes from '../components/heroesList/heroSlice';
 import filters from "../reducers/filters";
 
 //* улучшение функции dispatch

@@ -1,4 +1,4 @@
-import {heroDeleted} from "../../actions";
+import {heroDeleted} from "../heroesList/heroSlice";
 import {useDispatch} from "react-redux";
 
 const HeroesListItem = ({name, description, element, id, heroDelete}) => {
