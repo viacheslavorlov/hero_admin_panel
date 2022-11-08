@@ -6,11 +6,11 @@ const initialState = {
 	heroesLoadingStatus: 'idle',
 }
 
-const fetchHeroes = createAsyncThunk(
+export const fetchHeroes = createAsyncThunk(
 	'heroes/heroesFetched',
 	async () => {
 		const {request} = useHttp();
-		return await request("http://localhost:3001/heroes")
+		return await request('http://localhost:3001/heroes')
 	}
 )
 
@@ -55,9 +55,6 @@ const {actions, reducer} = heroSlice;
 
 export default reducer;
 export const {
-	heroesFetched,
-	heroesFetching,
-	heroesFetchingError,
 	addHero,
 	heroDeleted
 } = actions;
