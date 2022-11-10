@@ -9,9 +9,11 @@
 // * данных из фильтров
 import {v4} from "uuid";
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useHttp} from '../../hooks/http.hook'
 import {addHero} from "../heroesList/heroSlice";
+import {selectAll} from "../heroesFilters/filterSlice";
+import store from "../../store";
 
 
 const HeroesAddForm = () => {
@@ -21,7 +23,7 @@ const HeroesAddForm = () => {
 		element: 'fire'
 	});
 
-	const state = useSelector(state => state);
+	const filters = selectAll(store.getState());
 
 	const dispatch = useDispatch();
 
@@ -48,7 +50,7 @@ const HeroesAddForm = () => {
 		e.target.reset();
 	}
 
-	const options = state.filters.filters.map((item, i) => {
+	const options = filters.map((item, i) => {
 		if (item.element === 'all') {
 			return null;
 		}
@@ -56,7 +58,6 @@ const HeroesAddForm = () => {
 			<option key={i} value={item.element}>{item.name}</option>
 		)
 	});
-
 
 	return (
 		<form

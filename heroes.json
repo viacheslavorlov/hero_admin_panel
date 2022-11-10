@@ -20,33 +20,38 @@
     },
     {
       "name": "Black Panter",
-      "description": "sdg fdfsfsdgsd fgg fds gfdssgdf ",
-      "element": "wind",
-      "id": "be751c18-2aad-4bbf-b199-af8cdb4810e0"
+      "description": "asdfaf",
+      "element": "earth",
+      "id": "abc3764b-3a20-418c-a929-dfb47020e4fa"
     }
   ],
   "filters": [
     {
+      "id": 1,
       "element": "all",
       "name": "Все",
       "style": "btn-outline-dark"
     },
     {
+      "id": 2,
       "element": "fire",
       "name": "Огонь",
       "style": "btn-danger"
     },
     {
+      "id": 3,
       "element": "water",
       "name": "Вода",
       "style": "btn-primary"
     },
     {
+      "id": 4,
       "element": "wind",
       "name": "Ветер",
       "style": "btn-success"
     },
     {
+      "id": 5,
       "element": "earth",
       "name": "Земля",
       "style": "btn-secondary"

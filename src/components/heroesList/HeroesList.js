@@ -1,9 +1,8 @@
 import {useHttp} from '../../hooks/http.hook';
 import {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {createSelector} from '@reduxjs/toolkit'
 
-import {fetchHeroes} from './heroSlice';
+import {fetchHeroes, filteredHeroesSelector} from './heroSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
@@ -14,21 +13,7 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 // *DONE Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-
-	const filteredHeroesSelector = createSelector(
-		(state) => state.filters.activeFilter,
-		(state) => state.heroes.heroes,
-		(activeFilter, heroes) => {
-			const filteredList = heroes.filter(item => item.element === activeFilter)
-			console.log("heroList_renders");
-			if (activeFilter === 'all') {
-
-				return heroes;
-			} else {
-				return filteredList;
-			}
-		}
-	);
+	// console.log('hero list render')
 	const filtHeroes = useSelector(filteredHeroesSelector);
 	const {heroesLoadingStatus} = useSelector(state => state.heroes);
 	const dispatch = useDispatch();
@@ -69,7 +54,6 @@ const HeroesList = () => {
 					classNames="item"
 				>
 					<HeroesListItem
-						heroes={filtHeroes}
 						heroDelete={heroDelete}
 						{...props}/>
 				</CSSTransition>

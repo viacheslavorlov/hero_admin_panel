@@ -1,10 +1,16 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk, createEntityAdapter, createSelector} from "@reduxjs/toolkit";
 import {useHttp} from "../../hooks/http.hook";
 
-const initialState = {
-	heroes: [],
-	heroesLoadingStatus: 'idle',
-}
+const heroesAdapter = createEntityAdapter();
+
+// const initialState = {
+// 	heroes: [],
+// 	heroesLoadingStatus: 'idle',
+// }
+const initialState = heroesAdapter.getInitialState({
+	heroesLoadingStatus: 'idle'
+});
+
 
 export const fetchHeroes = createAsyncThunk(
 	'heroes/heroesFetched',
@@ -18,21 +24,11 @@ const heroSlice = createSlice({
 	name: 'heroes',
 	initialState,
 	reducers: {
-		// heroesFetching: state => {
-		// 	state.heroesLoadingStatus = 'loading'
-		// },
-		// heroesFetched: (state, action) => {
-		// 	state.heroes = action.payload;
-		// 	state.heroesLoadingStatus = 'idle';
-		// },
-		// heroesFetchingError: state => {
-		// 	state.heroesLoadingStatus = 'error';
-		// },
 		addHero: (state, action) => {
-			state.heroes.push(action.payload);
+			heroesAdapter.addOne(state, action.payload);
 		},
 		heroDeleted: (state, action) => {
-			state.heroes = state.heroes.filter(item => item.id !== action.payload)
+			heroesAdapter.removeOne(state, action.payload);
 		}
 	},
 	extraReducers: (builder) => {
@@ -41,7 +37,7 @@ const heroSlice = createSlice({
 				state.heroesLoadingStatus = 'loading';
 			})
 			.addCase(fetchHeroes.fulfilled, (state, action) => {
-				state.heroes = action.payload;
+				heroesAdapter.setAll(state, action.payload);
 				state.heroesLoadingStatus = 'idle';
 			})
 			.addCase(fetchHeroes.rejected, state => {
@@ -54,6 +50,24 @@ const heroSlice = createSlice({
 const {actions, reducer} = heroSlice;
 
 export default reducer;
+
+const {selectAll} = heroesAdapter.getSelectors(state => state.heroes);
+
+export const filteredHeroesSelector = createSelector(
+	(state) => state.filters.activeFilter,
+	selectAll,
+	(activeFilter, heroes) => {
+		const filteredList = heroes.filter(item => item.element === activeFilter)
+
+		if (activeFilter === 'all') {
+			return heroes;
+		} else {
+			return filteredList;
+		}
+	}
+);
+
+
 export const {
 	addHero,
 	heroDeleted
