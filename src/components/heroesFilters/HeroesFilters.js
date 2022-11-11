@@ -3,6 +3,7 @@ import {setFilter, fetchFilters, selectAll} from "./filterSlice";
 import {useEffect} from "react";
 import {v4} from 'uuid';
 import store from "../../store";
+import {apiSlice} from "../../api/apiSlice";
 
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных

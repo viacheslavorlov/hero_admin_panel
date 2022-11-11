@@ -6,6 +6,7 @@ import {fetchHeroes, filteredHeroesSelector} from './heroSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
+import { useGetHeroesQuery } from "../../api/apiSlice";
 
 // * Задача для этого компонента:
 // *DONE При клике на "крестик" идет удаление персонажа из общего состояния
@@ -14,6 +15,16 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 const HeroesList = () => {
 	// console.log('hero list render')
+
+	const {
+		data: heroes,
+		isFetching,
+		isLoading,
+		iSSuccess,
+		isError,
+		error
+	} = useGetHeroesQuery();
+
 	const filtHeroes = useSelector(filteredHeroesSelector);
 	const {heroesLoadingStatus} = useSelector(state => state.heroes);
 	const dispatch = useDispatch();

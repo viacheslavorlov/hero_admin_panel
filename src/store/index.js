@@ -1,6 +1,7 @@
 import {configureStore} from "@reduxjs/toolkit";
 import heroes from '../components/heroesList/heroSlice';
 import filters from "../components/heroesFilters/filterSlice";
+import {apiSlice} from "../api/apiSlice";
 
 //* улучшение функции dispatch
 const stringMiddleware = (store) => (next) => (action) => {
@@ -33,9 +34,9 @@ const stringMiddleware = (store) => (next) => (action) => {
 
 // * Использовать RTK - стандарт разработки
 const store = configureStore({
-	reducer: {heroes, filters},
+	reducer: {heroes, filters, [apiSlice.reducerPath]: apiSlice.reducer},
 	devTools: process.env.NODE_ENV !== 'production',
-	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware)
+	middleware: getDefaultMiddleware => getDefaultMiddleware().concat(stringMiddleware, apiSlice.middleware)
 });
 
 export default store;
