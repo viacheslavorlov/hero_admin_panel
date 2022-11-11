@@ -17,12 +17,6 @@
       "name": "Морской герой",
       "description": "Как аквамен, но не из DC",
       "element": "water"
-    },
-    {
-      "name": "Black Panter",
-      "description": "asdfaf",
-      "element": "earth",
-      "id": "abc3764b-3a20-418c-a929-dfb47020e4fa"
     }
   ],
   "filters": [

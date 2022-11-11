@@ -1,12 +1,12 @@
-import {useHttp} from '../../hooks/http.hook';
-import {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+// import {useHttp} from '../../hooks/http.hook';
+import {useCallback, useMemo} from 'react';
+import {useSelector} from 'react-redux';
 
-import {fetchHeroes, filteredHeroesSelector} from './heroSlice';
+// import {fetchHeroes} from './heroSlice';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 import {CSSTransition, TransitionGroup} from "react-transition-group";
-import { useGetHeroesQuery } from "../../api/apiSlice";
+import {useGetHeroesQuery, useDeleteHeroMutation} from "../../api/apiSlice";
 
 // * Задача для этого компонента:
 // *DONE При клике на "крестик" идет удаление персонажа из общего состояния
@@ -15,34 +15,42 @@ import { useGetHeroesQuery } from "../../api/apiSlice";
 
 const HeroesList = () => {
 	// console.log('hero list render')
+	const [deleteHero] = useDeleteHeroMutation();
 
 	const {
-		data: heroes,
-		isFetching,
+		data: heroes = [],
 		isLoading,
-		iSSuccess,
 		isError,
-		error
 	} = useGetHeroesQuery();
+	const activeFilter = useSelector(state => state.filters.activeFilter);
+	const filteredHeroes = useMemo(() => {
+		const filteredHeroes = heroes.slice();
+		if (activeFilter === 'all') {
+			return filteredHeroes;
+		} else {
+			return filteredHeroes.filter(item => item.element === activeFilter)
+		}
+	}, [heroes, activeFilter])
 
-	const filtHeroes = useSelector(filteredHeroesSelector);
-	const {heroesLoadingStatus} = useSelector(state => state.heroes);
-	const dispatch = useDispatch();
-	const {request} = useHttp();
+	// const filtHeroes = useSelector(filteredHeroesSelector);
+	// const {heroesLoadingStatus} = useSelector(state => state.heroes);
+	// const dispatch = useDispatch();
+	// const {request} = useHttp();
 
-	useEffect(() => {
-		dispatch(fetchHeroes())
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(fetchHeroes())
+	// }, []);
 
 
-	const heroDelete = (heroId) => {
-		request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
-			.then((r) => console.log(`hero ${heroId} deleted`, r))
-	}
+	const heroDelete = useCallback((heroId) => {
+		deleteHero(heroId);
+		// request(`http://localhost:3001/heroes/${heroId}`, 'DELETE')
+		// 	.then((r) => console.log(`hero ${heroId} deleted`, r))
+	}, [deleteHero])
 
-	if (heroesLoadingStatus === "loading") {
+	if (isLoading) {
 		return <Spinner/>;
-	} else if (heroesLoadingStatus === "error") {
+	} else if (isError) {
 		return <h5 className="text-center mt-5">Ошибка загрузки</h5>;
 	}
 
@@ -72,9 +80,7 @@ const HeroesList = () => {
 		})
 	}
 
-
-	const elements = renderHeroesList(filtHeroes);
-
+	const elements = renderHeroesList(filteredHeroes);
 
 	return (
 		<ul>
@@ -83,6 +89,8 @@ const HeroesList = () => {
 			</TransitionGroup>
 		</ul>
 	)
+
+
 }
 
 export default HeroesList;

@@ -1,10 +1,5 @@
-import {heroDeleted} from "../heroesList/heroSlice";
-import {useDispatch} from "react-redux";
-
 const HeroesListItem = ({name, description, element, id, heroDelete}) => {
-    const dispatch = useDispatch()
     let elementClassName;
-
     switch (element) {
         case 'fire':
             elementClassName = 'bg-danger bg-gradient';
@@ -35,10 +30,7 @@ const HeroesListItem = ({name, description, element, id, heroDelete}) => {
                 <p className="card-text">{description}</p>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
-                <button onClick={() => {
-                    heroDelete(id)
-                    dispatch(heroDeleted(id));
-                }}
+                <button onClick={() => heroDelete(id)}
                     type="button" className="btn-close btn-close" aria-label="Close"></button>
             </span>
         </li>
